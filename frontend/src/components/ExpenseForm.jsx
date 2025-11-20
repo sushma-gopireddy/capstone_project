@@ -46,15 +46,66 @@ const ExpenseForm = ({ }) => {
           
         
         <div  className = "form-group">
-            <label htmlFor="description">Description</label>
-            <input type="text"
-            id= "description"
-            value={form.description}
+            <label htmlFor="date">Date</label>
+            <input type="date"
+            id= "date"
+            value={formData.date}
             onchange={handleChange}
             required
-            placeholder="what did you spend on?"
              /> 
-             </div>
+              </div>
+             <div classname = "form-group">
+                <label htmlFor="description">Description</label>
+              <input type = "text"
+                      id = "description"
+                       name = "description"
+                       value = {formData.description}
+                       onchange = {handleChange}
+                       required placeholder = "what did you spend on?"></input>  
+                 </div>
+
+                 <div classname ="form-row">
+                    <div classname = "form-group">
+                        <label htmlFor="category">Category</label>
+                        <div classname = "category-select-wrapper">
+                            <select id = "category"
+                            name= "category"
+                            value={formData.category}
+                            onchange = {handleChange}
+                            required
+                            >
+                                <option value="">select category</option>
+                            </select>
+
+                            <button type="button"
+                            onClick={() => setShowCategoryForm(!showCategoryForm)}
+                            classnmae = "btn-add-category"
+                            title="add new category"
+                            >
+                                +
+                            </button>
+                            <div className = "form-group">
+                                <label htmlFor="paymentmethod">payment Method</label>
+                                <select id="paymentMethod"
+                                name="paymentmethod"
+                                value={formData.paymentMethod}
+                                onchange={handleChange}>
+                                    <option value="cash">cash</option>
+                                    <option value="debit">creditcard</option>
+                                    <option value="credit"></option>
+                                    <option value="upi">UPI</option>
+                                    <option value="0ther">Other</option>
+                                </select>
+                            </div>
+
+                        </div>
+                                 <div classname="form-actions">
+                                    <button type="submit" classname="btn-submit">
+                                        add Expense
+                                    </button>
+                                 </div>
+                    </div>
+                 </div>
     </form>  
  </div>
  
