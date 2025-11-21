@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import './App.css' 
+import Dashboard from './components/Dashboard'
 
 
 function App() {
@@ -10,14 +11,12 @@ useEffect(() =>{
     console.log(result)
   }
   test()
-},[])
-  return (
-    <>
-      <div>
+},[]);
 
+return (
+    <div className='App'>
+      <Dashboard />
       </div>
-
-    </>
   )
 }
 

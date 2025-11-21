@@ -43,6 +43,7 @@ const ExpenseForm = ({ }) => {
               placeholder="0.00"
             />
           </div>
+        </div>
           
         
         <div  className = "form-group">

@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import './Dashboard.css';
 import ExpenseForm from "./ExpenseForm";
+import ExpenseList from './ExpenseList';
 
 const Dashboard = ({  }) => {
+  const [expenses, setExpenses] = useState([]);
   const [loading, setLoading] = useState(false);
 
 
@@ -51,6 +53,9 @@ const Dashboard = ({  }) => {
               <ExpenseForm />
             </div>
           </div>
+          <ExpenseList 
+            expenses={expenses} 
+          />
 
         </>
       )}
