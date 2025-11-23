@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const expenseSchema = new mongoose.Schema({
+const expenseSchema = new Schema({
   amount: {
     type: Number,
     required: true,
@@ -11,7 +11,7 @@ const expenseSchema = new mongoose.Schema({
     required: true
   },
   category: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Category',
     required: true
   },
@@ -20,7 +20,7 @@ const expenseSchema = new mongoose.Schema({
     default: Date.now
   },
   userId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'User',
     required: true
   },
@@ -35,4 +35,4 @@ const expenseSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('Expense', expenseSchema);
+export default model('Expense', expenseSchema);

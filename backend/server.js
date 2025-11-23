@@ -1,25 +1,27 @@
-const express = require('express');
-const cors = require('cors');
-require('dotenv').config();
-const connectDB = require('./config/db');
+import express, { json } from 'express';
+import cors from 'cors';
+import { config } from 'dotenv';
+config();
+import connectDB from './config/db.js';
 
-const expenseRoutes = require('./routes/expenseRoutes');
-const categoryRoutes = require('./routes/categoryRoutes');
+import expenseRoutes from './routes/expenseRoutes.js';
+//import categoryRoutes from './routes/categoryRoutes.js';
 
 const app = express();
 
-// Middleware
+// enabled cors for accessing this backup app from frontend
 app.use(cors());
-app.use(express.json());
 
-// Database connection
+app.use(json());
+
+// database connection
 connectDB();
 
-// Routes
+// routes
 app.use('/api/expenses', expenseRoutes);
-app.use('/api/categories', categoryRoutes);
+//app.use('/api/categories', categoryRoutes);
 
-// Health check route
+// health check route
 app.get('/', (req, res) => {
   res.json({ message: 'Expense Tracker API is running' });
 });
