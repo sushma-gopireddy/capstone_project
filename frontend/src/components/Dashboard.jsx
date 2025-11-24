@@ -4,7 +4,7 @@ import ExpenseForm from "./ExpenseForm";
 import ExpenseList from './ExpenseList';
 import { expenseAPI } from '../services/api';
 
-const Dashboard = ({  }) => {
+const Dashboard = ({ user, onLogout }) => {
   const [expenses, setExpenses] = useState([]);
   const [loading, setLoading] = useState(false);
   const [stats, setStats] = useState({ totalExpenses: 0, categoryBreakdown: [] });
@@ -60,11 +60,32 @@ const Dashboard = ({  }) => {
       <header className="dashboard-header">
         <div className="header-left">
           <h1> Expense Tracker</h1>
-          <p className="welcome-text">Welcome, Sushma!</p>
+          <p className="welcome-text">Welcome, {user.name}!</p>
         </div>
         
-        <div className="header-right">
+         <div className="header-right">
+          <div className="month-selector">
+            <select value={selectedMonth} onChange={(e) => setSelectedMonth(Number(e.target.value))}>
+              {Array.from({ length: 12 }, (_, i) => (
+                <option key={i + 1} value={i + 1}>
+                  {new Date(2000, i).toLocaleString('default', { month: 'long' })}
+                </option>
+              ))}
+            </select>
+            <select value={selectedYear} onChange={(e) => setSelectedYear(Number(e.target.value))}>
+              {Array.from({ length: 5 }, (_, i) => (
+                <option key={i} value={new Date().getFullYear() - i}>
+                  {new Date().getFullYear() - i}
+                </option>
+              ))}
+            </select>
+          </div>
+          
+          <button onClick={handleLogout} className="btn-logout">
+            Logout
+          </button>
         </div>
+
       </header>
 
       {loading ? (
