@@ -4,8 +4,10 @@ import Category from '../models/Category.js';
 export async function getCategories(req, res) {
   try {
     const categories = await Category.find({ userId: req.user.id }).sort({ name: 1 });
+    //console.log(categories);
     res.json(categories);
   } catch (error) {
+    console.log(error.message);
     res.status(500).json({ message: error.message });
   }
 }
@@ -25,6 +27,7 @@ export async function createCategory(req, res) {
     const savedCategory = await category.save();
     res.status(201).json(savedCategory);
   } catch (error) {
+    console.log(error.message);
     res.status(400).json({ message: error.message });
   }
 }
@@ -48,6 +51,7 @@ export async function updateCategory(req, res) {
     const updatedCategory = await category.save();
     res.json(updatedCategory);
   } catch (error) {
+    console.log(error.message);
     res.status(400).json({ message: error.message });
   }
 }
@@ -65,6 +69,7 @@ export async function deleteCategory(req, res) {
     
     res.json({ message: 'Category deleted successfully' });
   } catch (error) {
+    console.log(error.message);
     res.status(500).json({ message: error.message });
   }
 }

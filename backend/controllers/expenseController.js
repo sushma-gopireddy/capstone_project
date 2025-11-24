@@ -99,6 +99,7 @@ export async function deleteExpense(req, res) {
 // Get expense statistics
 export async function getExpenseStats(req, res) {
   try {
+    //console.log("in getExpenseStats");
     const { month, year } = req.query;
     const currentMonth = month || new Date().getMonth() + 1;
     const currentYear = year || new Date().getFullYear();
@@ -107,7 +108,7 @@ export async function getExpenseStats(req, res) {
     const endDate = new Date(currentYear, currentMonth, 0, 23, 59, 59);
     
     // Total expenses
-    const totalExpenses = await aggregate([
+    const totalExpenses = await Expense.aggregate([
       {
         $match: {
           userId: req.user.id,
@@ -155,6 +156,7 @@ export async function getExpenseStats(req, res) {
       categoryBreakdown: categoryExpenses
     });
   } catch (error) {
+    console.log(error.message);
     res.status(500).json({ message: error.message });
   }
 }
