@@ -1,6 +1,7 @@
 import User from '../models/User.js';
-import { insertMany } from '../models/Category';
-import { sign } from 'jsonwebtoken';
+import Category from '../models/Category.js';
+import pkg from 'jsonwebtoken';
+const { sign } = pkg;
 
 // Generate JWT token
 const generateToken = (userId) => {
@@ -24,7 +25,7 @@ const createDefaultCategories = async (userId) => {
     { name: 'Other', icon: 'O', color: '#64748b', userId }
   ];
 
-  await insertMany(defaultCategories);
+  await Category.insertMany(defaultCategories);
 };
 
 // Register new user
