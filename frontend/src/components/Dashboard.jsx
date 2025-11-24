@@ -76,28 +76,28 @@ const Dashboard = ({  }) => {
               <div className="card-icon">E</div>
               <div className="card-content">
                 <h3>Total Expenses</h3>
-                <p className="amount">0</p>
+                <p className="amount">${stats.totalExpenses.toFixed(2)}</p>
               </div>
             </div>
             <div className="summary-card">
               <div className="card-icon">T</div>
               <div className="card-content">
                 <h3>Transactions</h3>
-                <p className="count">0</p>
+                <p className="count">{expenses.length}</p>
               </div>
             </div>
             <div className="summary-card">
               <div className="card-icon">C</div>
               <div className="card-content">
                 <h3>Categories</h3>
-                <p className="count">0</p>
+                <p className="count">{stats.categoryBreakdown.length}</p>
               </div>
             </div>
           </div>
 
           <div className="dashboard-grid">
             <div className="dashboard-section">
-              <ExpenseForm />
+              <ExpenseForm onExpenseAdded={handleExpenseAdded}/>
             </div>
           </div>
           <ExpenseList 
