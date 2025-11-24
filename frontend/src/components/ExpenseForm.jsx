@@ -33,6 +33,7 @@ const ExpenseForm = ({ onExpenseAdded, expenseToEdit, onCancelEdit }) => {
   const fetchCategories = async () => {
     try {
       const response = await categoryAPI.getAll();
+      //alert(response.data);
       setCategories(response.data);
       if (response.data.length > 0 && !formData.category) {
         setFormData(prev => ({ ...prev, category: response.data[0]._id }));
@@ -70,7 +71,7 @@ const ExpenseForm = ({ onExpenseAdded, expenseToEdit, onCancelEdit }) => {
     e.preventDefault();
     try {
       await categoryAPI.create(newCategory);
-      setNewCategory({ name: '', color: '#3b82f6', icon: '💰' });
+      setNewCategory({ name: '', color: '#3b82f6', icon: '$' });
       setShowCategoryForm(false);
       fetchCategories();
     } catch (error) {
@@ -106,36 +107,41 @@ const ExpenseForm = ({ onExpenseAdded, expenseToEdit, onCancelEdit }) => {
             <input type="date"
             id= "date"
             value={formData.date}
-            onchange={handleChange}
+            onChange={handleChange}
             required
              /> 
               </div>
-             <div classname = "form-group">
+             <div className = "form-group">
                 <label htmlFor="description">Description</label>
               <input type = "text"
                       id = "description"
                        name = "description"
                        value = {formData.description}
-                       onchange = {handleChange}
+                       onChange = {handleChange}
                        required placeholder = "what did you spend on?"></input>  
                  </div>
 
-                 <div classname ="form-row">
-                    <div classname = "form-group">
+                 <div className ="form-row">
+                    <div className = "form-group">
                         <label htmlFor="category">Category</label>
-                        <div classname = "category-select-wrapper">
+                        <div className = "category-select-wrapper">
                             <select id = "category"
                             name= "category"
                             value={formData.category}
-                            onchange = {handleChange}
+                            onChange = {handleChange}
                             required
                             >
                                 <option value="">select category</option>
+                                {categories.map((cat) => (
+                                <option key={cat._id} value={cat._id}>
+                                    {cat.icon} {cat.name}
+                                </option>
+                                ))}
                             </select>
 
                             <button type="button"
                             onClick={() => setShowCategoryForm(!showCategoryForm)}
-                            classnmae = "btn-add-category"
+                            className = "btn-add-category"
                             title="add new category"
                             >
                                 +
@@ -145,11 +151,10 @@ const ExpenseForm = ({ onExpenseAdded, expenseToEdit, onCancelEdit }) => {
                                 <select id="paymentMethod"
                                 name="paymentmethod"
                                 value={formData.paymentMethod}
-                                onchange={handleChange}>
-                                    <option value="cash">cash</option>
-                                    <option value="debit">creditcard</option>
-                                    <option value="credit"></option>
-                                    <option value="upi">UPI</option>
+                                onChange={handleChange}>
+                                    <option value="cash">Cash</option>
+                                    <option value="debit">Debitcard</option>
+                                    <option value="credit">CreditCard</option>
                                     <option value="0ther">Other</option>
                                 </select>
                             </div>
@@ -184,8 +189,8 @@ const ExpenseForm = ({ onExpenseAdded, expenseToEdit, onCancelEdit }) => {
                             </div>
                         </div>
                         )}
-                                 <div classname="form-actions">
-                                    <button type="submit" classname="btn-submit">
+                                 <div className="form-actions">
+                                    <button type="submit" className="btn-submit">
                                         add Expense
                                     </button>
                                  </div>
