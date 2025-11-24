@@ -1,23 +1,50 @@
-import { useEffect } from 'react'
+import { useState,useEffect } from 'react'
+import Login from './components/Login';
 import './App.css' 
 import Dashboard from './components/Dashboard'
 
 
 function App() {
-useEffect(() =>{
-  async function test() {
-    const response = await fetch('http://localhost:8080')
-    const result = await response.json()
-    console.log(result)
-  }
-  test()
-},[]);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-return (
-    <div className='App'>
-      <Dashboard />
+  useEffect(() => {
+    // check user logged in or not
+    const token = localStorage.getItem('token');
+    const savedUser = localStorage.getItem('user');
+    
+    if (token && savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+    setLoading(false);
+  }, []);
+
+  const handleLogin = (userData) => {
+    setUser(userData);
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+  };
+
+  if (loading) {
+    return (
+      <div className="loading-screen">
+        <div className="spinner"></div>
+        <p>Loading...</p>
       </div>
-  )
+    );
+  }
+
+  return (
+    <div className="App">
+      {user ? (
+        <Dashboard user={user} onLogout={handleLogout} />
+      ) : (
+        <Login onLogin={handleLogin} />
+      )}
+    </div>
+  );
 }
 
 export default App
