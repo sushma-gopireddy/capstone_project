@@ -5,7 +5,7 @@ config();
 import connectDB from './config/db.js';
 
 import expenseRoutes from './routes/expenseRoutes.js';
-//import categoryRoutes from './routes/categoryRoutes.js';
+import categoryRoutes from './routes/categoryRoutes.js';
 
 const app = express();
 
@@ -19,7 +19,7 @@ connectDB();
 
 // routes
 app.use('/api/expenses', expenseRoutes);
-//app.use('/api/categories', categoryRoutes);
+app.use('/api/categories', categoryRoutes);
 
 // health check route
 app.get('/', (req, res) => {
